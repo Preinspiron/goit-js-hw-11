@@ -24,12 +24,15 @@ function searchFetch(name) {
     .then(data => data.json())
     .then(res => {
       if (res.length >= 10)
-        throw new Error(
+        Notify.info(
           'Too many matches found. Please enter a more specific name.'
         );
+
+      if (res.length < 1) throw new Error();
+
       return res.length !== 1 ? renderList(res) : renderItem(res);
     })
-    .catch(err => Notify.info(err.message));
+    .catch(err => Notify.failure('Oops, there is no country with that name')); // не могу пробросить err.message
 }
 
 function renderList(data) {
