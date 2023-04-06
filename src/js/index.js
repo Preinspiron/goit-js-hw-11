@@ -23,17 +23,25 @@ function searchFetch(name) {
   return fetchCountries(name)
     .then(data => data.json())
     .then(res => {
-      if (res.length >= 10)
+      countryListRef.innerHTML = '';
+      countryInfotRef.innerHTML = '';
+      if (res.length >= 10) {
         Notify.info(
           'Too many matches found. Please enter a more specific name.'
         );
-
-      if (res.length < 1) throw new Error();
-
-      return res.length !== 1 ? renderList(res) : renderItem(res);
+      } else if (res.length === 0) {
+        throw new Error();
+      } else if (res.length === 1) {
+        renderItem(res);
+      } else {
+        renderList(res);
+      }
     })
-    .catch(err => Notify.failure('Oops, there is no country with that name')); // не могу пробросить err.message
-}
+    .catch(err => {
+      // console.log(err);
+      Notify.failure('Oops, there is no country with that name');
+    });
+} // не могу пробросить err.message
 
 function renderList(data) {
   const renderData = data
@@ -45,6 +53,5 @@ function renderList(data) {
 }
 
 function renderItem(data) {
-  countryListRef.innerHTML = hbs2(data[0]);
-  console.log(data);
+  countryInfotRef.innerHTML = hbs2(data[0]);
 }
