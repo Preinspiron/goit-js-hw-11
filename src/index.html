@@ -4,13 +4,46 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homework 10</title>
+    <title>Homework 11</title>
   </head>
   <body>
-    <input type="text" id="search-box" />
-    <ul class="country-list"></ul>
-    <div class="country-info"></div>
+    <form class="search-form" id="search-form">
+      <input
+        type="text"
+        name="searchQuery"
+        autocomplete="off"
+        placeholder="Search images..."
+      />
+      <button class="btn" disabled type="submit"></button>
 
+      <div class="renderType">
+        <input
+          disabled
+          type="radio"
+          id="pagePaginacion"
+          name="contact"
+          value="page"
+        />
+        <label for="contactChoice1">Per Page</label>
+
+        <input
+          disabled
+          type="radio"
+          id="Scroll"
+          name="contact"
+          value="scroll"
+        />
+        <label for="contactChoice2">Scroll</label>
+
+        <input checked type="radio" id="loadMore" name="contact" value="load" />
+        <label for="contactChoice3">Load More</label>
+      </div>
+    </form>
+
+    <div class="gallery">
+      <!-- Карточки изображений -->
+    </div>
+    <button class="loadmore is-hidden">Load</button>
     <script src="./js/index.js" type="module"></script>
   </body>
 </html>
