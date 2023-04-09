@@ -127,3 +127,7 @@ span {
   top: -1px;
   left: -20px;
 }
+
+.input-search {
+  padding-right: 25px;
+}
