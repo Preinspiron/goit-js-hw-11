@@ -29,5 +29,16 @@ function handleLoadMore() {
     Cards.locals.flag = false;
   }
 
-  const resp = renderHBS(Cards);
+  const resp = renderHBS(Cards).then(() => {
+    // refs.loadMoreRef.scrollIntoView(false);
+    const { top: cardHeight } = document
+      .querySelector('.load-more')
+      .getBoundingClientRect();
+    console.log(cardHeight);
+
+    window.scrollBy({
+      top: cardHeight,
+      behavior: 'smooth',
+    });
+  });
 }
