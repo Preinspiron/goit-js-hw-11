@@ -17,7 +17,6 @@ export default async function renderHBS(callback, query) {
     .axiosFetch(query)
     .then(res => {
       if (typeof res === 'string') {
-        console.log(111);
         Notify.info(res);
         Loading.remove();
         callback.clearPage;
@@ -26,19 +25,26 @@ export default async function renderHBS(callback, query) {
       refs.loadMoreRef.classList.remove('is-hidden');
       return res;
     })
-    .catch(console.log);
-  refs.galleryRef.insertAdjacentHTML('beforeend', cards(arr));
+    .catch(err => Notify.info(err.message));
+
+  const promises = await arr.map(async item => {
+    return await Promise.resolve(item);
+  });
+
+  const prerender = await Promise.all(promises).then(res => {
+    Loading.remove();
+    if (callback.isItLastPage()) {
+      refs.loadMoreRef.textContent = 'No more avaible content';
+    }
+    if (!callback.locals.flag) {
+      console.log('finish');
+      Notify.info('No more avaible content');
+      return;
+    }
+    return res;
+  });
+
+  refs.galleryRef.insertAdjacentHTML('beforeend', cards(prerender));
   let box = new SimpleLightbox('.gallery a');
-  const promises = await arr.map(item => {
-    return Promise.resolve(item);
-  });
-  const prerender = Promise.all(promises).then(() => {
-    Loading.remove(1000);
-  });
+  return callback.isItLastPage();
 }
-
-function moreLoad() {
-  // Cards.moreLoad().then(console.log);
-}
-
-refs.loadMoreRef.addEventListener('click', moreLoad);

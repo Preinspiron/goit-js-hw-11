@@ -1,5 +1,5 @@
 export default {
   formRef: document.querySelector('#search-form'),
   galleryRef: document.querySelector('.gallery'),
-  loadMoreRef: document.querySelector('.loadmore'),
+  loadMoreRef: document.querySelector('.load-more'),
 };

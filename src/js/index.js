@@ -5,6 +5,12 @@ import '../css/styles.css';
 import refs from './refs';
 import renderHBS from './render';
 
+import Pagination from 'tui-pagination';
+import('tui-pagination/dist/tui-pagination.min.css');
+
+const container = document.getElementById('tui-pagination-container');
+const instance = new Pagination(container, {});
+
 const handleSearchDebounced = debounce(handleSearch, 500);
 
 refs.formRef.addEventListener('input', handleSearchDebounced);
@@ -13,13 +19,16 @@ function handleSearch(e) {
   e.preventDefault();
   const search = e.target.value.trim(); //c debouncу не ребаотет e.cuttentTarget === null
   Cards.clearPage;
-  // refs.loadMoreRef.setAttribute('disabled', true);
-  console.log(refs.loadMoreRef);
   search && renderHBS(Cards, search);
 }
 
 refs.loadMoreRef.addEventListener('click', handleLoadMore);
 
 function handleLoadMore() {
-  renderHBS(Cards);
+  if (Cards.isItLastPage()) {
+    console.log(Cards.isItLastPage());
+    Cards.locals.flag = false;
+  }
+
+  const resp = renderHBS(Cards);
 }
