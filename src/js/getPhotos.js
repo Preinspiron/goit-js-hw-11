@@ -5,7 +5,7 @@ export default class Cards {
   static axiosParams = {
     params: {
       per_page: 40,
-      page: 10,
+      page: 1,
     },
   };
   static locals = {
@@ -22,7 +22,7 @@ export default class Cards {
     refs.loadMoreRef.disabled = false;
     refs.loadMoreRef.textContent = 'Load';
 
-    this.axiosParams.params.page = 10;
+    this.axiosParams.params.page = 1;
     this.locals.flag = true;
   }
 

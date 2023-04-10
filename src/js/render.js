@@ -37,8 +37,8 @@ export default async function renderHBS(callback, query) {
       refs.loadMoreRef.textContent = 'No more avaible content';
     }
     if (!callback.locals.flag) {
-      console.log('finish');
       Notify.info('No more avaible content');
+      refs.loadMoreRef.disabled = true;
       return;
     }
     return res;

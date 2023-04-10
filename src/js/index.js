@@ -26,7 +26,6 @@ refs.loadMoreRef.addEventListener('click', handleLoadMore);
 
 function handleLoadMore() {
   if (Cards.isItLastPage()) {
-    console.log(Cards.isItLastPage());
     Cards.locals.flag = false;
   }
 
